@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>update profile</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        body{
+            background: url("/images/blog-5.jpg") no-repeat center;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            /*background-color: #111111;*/
+        }
+        :root{
+            --blue:#3498db;
+            --dark-blue:#2980b9;
+            --red:#e74c3c;
+            --dark-red:#c0392b;
+            --black:white;
+            --white:black;
+            --light-bg:#eee;
+            --box-shadow:0 5px 10px rgba(0,0,0,.1);
+        }
+
+        *{
+            font-family: 'Poppins', sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border: none;
+            text-decoration: none;
+        }
+
+        *::-webkit-scrollbar{
+            width: 10px;
+        }
+
+        *::-webkit-scrollbar-track{
+            background-color: transparent;
+        }
+
+        *::-webkit-scrollbar-thumb{
+            background-color: var(--blue);
+        }
+
+        .btn,
+        .delete-btn{
+            width: 100%;
+            border-radius: 5px;
+            padding:10px 30px;
+            color:var(--white);
+            display: block;
+            text-align: center;
+            cursor: pointer;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .btn{
+            background-color: var(--blue);
+        }
+
+        .btn:hover{
+            background-color: var(--dark-blue);
+        }
+        .delete-btn{
+            background-color: var(--red);
+        }
+
+        .delete-btn:hover{
+            background-color: var(--dark-red);
+        }
+
+        .update-profile{
+            min-height: 100vh;
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding:20px;
+        }
+
+        .update-profile form{
+            padding:20px;
+            /*background-color: var(--white);*/
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            width: 480px;
+            text-align: center;
+            border-radius: 5px;
+            background: transparent;
+        }
+
+        .update-profile form img{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 5px;
+        }
+
+        .update-profile form .flex{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap:15px;
+        }
+
+        .update-profile form .flex .inputBox{
+            width: 49%;
+        }
+
+        .update-profile form .flex .inputBox span{
+            text-align: left;
+            display: block;
+            margin-top: 15px;
+            font-size: 17px;
+            color:var(--black);
+        }
+
+        .update-profile form .flex .inputBox .box{
+            width: 100%;
+            border-radius: 5px;
+            background-color: var(--light-bg);
+            padding:12px 14px;
+            font-size: 17px;
+            color:var(--black);
+            margin-top: 10px;
+        }
+
+        @media (max-width:650px){
+            .update-profile form .flex{
+                flex-wrap: wrap;
+                gap:0;
+            }
+            .update-profile form .flex .inputBox{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update profile</title>
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+</head>
+<body>
+
+<div class="update-profile">
+
+    <form th:action="@{/user/update}" th:method="@{post}" th:object="${change}" enctype="multipart/form-data">
+        <img id ="inp-img">
+        <div class="flex">
+            <div class="inputBox">
+                <input type="hidden" th:value="${change.id}" th:field="*{id}" class="box">
+                <span>Full Name :</span>
+                <input type="text" th:value="${change.fullname}" th:field="*{fullname}" class="box">
+                <span>your email :</span>
+                <input type="email" th:value="${change.email}" th:field="*{email}" class="box">
+                <span>update your pic :</span>
+                <input id="input-img" type="file" name="image" accept="image/*" class="box">
+            </div>
+            <div class="inputBox">
+                <span>new password :</span>
+                <input type="password" th:value="${change.password}" th:field="*{password}" placeholder="enter new password" class="box">
+                <span>confirm password :</span>
+                <input type="password" id = "confirm_password" placeholder="confirm new password" class="box">
+            </div>
+        </div>
+        <input type="submit" value="update profile" name="update_profile" class="btn">
+        <a href="/profile" class="delete-btn">go back</a>
+    </form>
+
+
+</div>
+</body>
+<script>
+    const inputImg = document.getElementById("input-img");
+    const inpImg = document.getElementById("inp-img");
+    function getImg(event) {
+        const file = event.target.files[0]; // 0 = get the first file
+
+        // console.log(file);
+
+        let url = window.URL.createObjectURL(file);
+
+        // console.log(url)
+
+        inpImg.src = url;
+    }
+
+    inputImg?.addEventListener("change", getImg);
+</script>
+</html>
+
+
+
+
+</body>
+
+</html>

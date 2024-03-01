@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>responsive fitness </title>
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{https://unpkg.com/swiper@7/swiper-bundle.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap");
+
+    * {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      outline: none;
+      border: none;
+      text-transform: capitalize;
+      transition: all .2s linear;
+    }
+
+    html {
+      font-size: 62.5%;
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+      overflow-x: hidden;
+    }
+
+    html::-webkit-scrollbar {
+      width: 1rem;
+    }
+
+    html::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    html::-webkit-scrollbar-thumb {
+      background: #a4af0ed2;
+      border-radius: 3rem;
+    }
+
+    body {
+      background: #000;
+    }
+
+    section {
+      padding: 5rem 9%;
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .heading::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: .1rem;
+      width: 100%;
+      background: #aaa;
+      z-index: -1;
+    }
+
+    .heading span {
+      font-size: 3rem;
+      color: #a4af0ed2;
+      background: #000;
+      padding: .5rem 1.5rem;
+      border: 0.1rem solid #aaa;
+      border-radius: .5rem;
+    }
+
+    .btn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      padding-right: 3rem;
+      background: linear-gradient(130deg, #a4af0ed2 93%, transparent 90%);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.7rem;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      padding: 0 9%;
+      z-index: 10000;
+      background: #000;
+    }
+
+    .header .logo {
+      font-weight: bolder;
+      color: #fff;
+      font-size: 3rem;
+    }
+
+    .header .logo span {
+      color: #a4af0ed2;
+    }
+
+    .header .navbar a {
+      display: inline-block;
+      padding: 1.5rem 2rem;
+      font-size: 1.7rem;
+      color: #fff;
+    }
+
+    .header .navbar a:hover {
+      background: #a4af0ed2;
+    }
+
+    #menu-btn {
+      font-size: 3rem;
+      color: #fff;
+      cursor: pointer;
+      display: none;
+    }
+
+    .home {
+      padding: 0;
+      margin-top: 5rem;
+    }
+
+    .home .slide {
+      min-height: 70vh;
+      background-size: cover !important;
+      background-position: center !important;
+      padding: 2rem 9%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    .home .slide .content {
+      width: 60rem;
+    }
+
+    .home .slide .content span {
+      font-size: 2rem;
+      color: #a4af0ed2;
+      display: block;
+    }
+
+    .home .slide .content h3 {
+      font-size: 5rem;
+      color: #fff;
+      padding: 1rem 0;
+    }
+
+    .swiper-pagination-bullet {
+      height: 2rem;
+      width: 2rem;
+      background: #fff;
+      border-radius: 0;
+    }
+
+    .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      background: #a4af0ed2;
+    }
+
+    .about {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      gap: 8rem;
+    }
+
+    .about .image {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 42rem;
+      flex: 1 1 42rem;
+      position: relative;
+    }
+
+    .about .image::before,
+    .about .image::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      background: #a4af0ed2;
+      height: 15rem;
+      width: 15rem;
+    }
+
+    .about .image::before {
+      top: 0;
+      left: 0;
+    }
+
+    .about .image::after {
+      bottom: 0;
+      right: 0;
+    }
+
+    .about .image img {
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .about .content {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 42rem;
+      flex: 1 1 42rem;
+    }
+
+    .about .content span {
+      font-size: 2rem;
+      color: #a4af0ed2;
+    }
+
+    .about .content .title {
+      font-size: 4rem;
+      color: #fff;
+      margin-top: .5rem;
+    }
+
+    .about .content p {
+      font-size: 1.5rem;
+      color: #aaa;
+      padding: 1rem 0;
+      line-height: 2;
+    }
+
+    .about .content .box-container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .about .content .box-container .box {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 20rem;
+      flex: 1 1 20rem;
+    }
+
+    .about .content .box-container .box h3 {
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .about .content .box-container .box h3 i {
+      padding-right: 1.5rem;
+      color: #a4af0ed2;
+    }
+
+    .features .box-container {
+      display: -ms-grid;
+      display: grid;
+      /*-ms-grid-columns: (minmax(32rem, 1fr);)[auto-fit];*/
+      grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+      gap: 1.5rem;
+      gap: 0;
+    }
+
+    .features .box-container .box {
+      background: #111;
+    }
+
+    .features .box-container .box.second {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: reverse;
+      -ms-flex-flow: column-reverse;
+      flex-flow: column-reverse;
+    }
+
+    .features .box-container .box:hover .image img {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+
+    .features .box-container .box .image {
+      height: 30rem;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .features .box-container .box .image img {
+      height: 100%;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+
+    .features .box-container .box .content {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .features .box-container .box .content img {
+      height: 9rem;
+      margin-bottom: 1rem;
+      -webkit-filter: invert(1);
+      filter: invert(1);
+    }
+
+    .features .box-container .box .content h3 {
+      font-size: 2rem;
+      color: #a4af0ed2;
+    }
+
+    .features .box-container .box .content p {
+      line-height: 2;
+      font-size: 1.5rem;
+      color: #aaa;
+      padding: 1rem 0;
+    }
+
+    .pricing {
+      display: -ms-grid;
+      display: grid;
+      /*-ms-grid-columns: (minmax(32rem, 1fr);)[auto-fit];*/
+      grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pricing .information span {
+      font-size: 2rem;
+      color: #a4af0ed2;
+    }
+
+    .pricing .information h3 {
+      font-size: 4rem;
+      padding-top: .5rem;
+      color: #fff;
+    }
+
+    .pricing .information p {
+      line-height: 2;
+      padding: 1rem 0;
+      font-size: 1.4rem;
+      color: #aaa;
+    }
+
+    .pricing .information p i {
+      padding-right: 1rem;
+      color: #a4af0ed2;
+    }
+
+    .pricing .plan {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .pricing .plan.basic {
+      background: linear-gradient(130deg, #111 93%, transparent 90%);
+    }
+
+    .pricing .plan h3 {
+      font-size: 2.5rem;
+      margin: 1rem 0;
+      color: #fff;
+    }
+
+    .pricing .plan .price {
+      font-size: 5rem;
+      font-weight: bolder;
+      color: #a4af0ed2;
+    }
+
+    .pricing .plan .price span {
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    .pricing .plan .list {
+      padding: 1rem 0;
+    }
+
+    .pricing .plan .list p {
+      line-height: 2;
+      padding: 1rem 0;
+      font-size: 1.4rem;
+      color: #aaa;
+    }
+
+    .pricing .plan .list p i {
+      padding-right: 1rem;
+      color: #a4af0ed2;
+    }
+
+    .trainers .box-container {
+      display: -ms-grid;
+      display: grid;
+      /*-ms-grid-columns: (minmax(29rem, 1fr);)[auto-fit];*/
+      grid-template-columns: repeat(auto-fit, minmax(29rem, 1fr));
+      gap: 1.5rem;
+    }
+
+    .trainers .box-container .box {
+      height: 40rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .trainers .box-container .box:hover .content {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    .trainers .box-container .box img {
+      height: 100%;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+
+    .trainers .box-container .box .content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #111;
+      padding: 2rem;
+      -webkit-transform: translateY(6.5rem);
+      transform: translateY(6.5rem);
+    }
+
+    .trainers .box-container .box .content span {
+      font-size: 1.5rem;
+      color: #a4af0ed2;
+    }
+
+    .trainers .box-container .box .content h3 {
+      font-size: 2rem;
+      color: #fff;
+      padding-top: .5rem;
+    }
+
+    .trainers .box-container .box .content .share {
+      padding-top: 2rem;
+      margin-top: 1.5rem;
+      border-top: 0.1rem solid #aaa;
+    }
+
+    .trainers .box-container .box .content .share a {
+      font-size: 2rem;
+      color: #fff;
+      margin-right: 1.5rem;
+    }
+
+    .trainers .box-container .box .content .share a:hover {
+      color: #a4af0ed2;
+    }
+
+    .banner {
+      /*background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(/images/banner-bg.jpg) no-repeat;*/
+      /*background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/images/banner-bg.jpg) no-repeat;*/
+      background-size: cover;
+      text-align: center;
+      background: url("/images/banner-bg.jpg") fixed center;
+    }
+
+    .banner span {
+      font-size: 2rem;
+      color: #a4af0ed2;
+    }
+
+    .banner h3 {
+      padding-top: 1rem;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 3.5rem;
+    }
+
+    .banner p {
+      margin: 1rem auto;
+      max-width: 60rem;
+      font-size: 1.5rem;
+      color: #aaa;
+      line-height: 2;
+    }
+
+    .review {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .review .information {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 35rem;
+      flex: 1 1 35rem;
+    }
+
+    .review .information span {
+      font-size: 2rem;
+      color: #a4af0ed2;
+    }
+
+    .review .information h3 {
+      font-size: 3rem;
+      color: #fff;
+      padding-top: 1rem;
+    }
+
+    .review .information p {
+      font-size: 1.5rem;
+      line-height: 2;
+      color: #aaa;
+      padding: 1rem 0;
+    }
+
+    .review .review-slider {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 60rem;
+      flex: 1 1 60rem;
+    }
+
+    .review .review-slider .slide {
+      background: linear-gradient(130deg, #111 93%, transparent 90%);
+      padding: 2rem 3rem;
+    }
+
+    .review .review-slider .slide p {
+      font-size: 1.5rem;
+      line-height: 2;
+      color: #aaa;
+    }
+
+    .review .review-slider .slide .user {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .review .review-slider .slide .user img {
+      height: 5rem;
+      width: 5rem;
+      -o-object-fit: cover;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+
+    .review .review-slider .slide .user h3 {
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .review .review-slider .slide .user span {
+      color: #a4af0ed2;
+      font-size: 1.5rem;
+    }
+
+    .review .review-slider .slide .user i {
+      font-size: 5rem;
+      margin-left: auto;
+      margin-right: 2rem;
+      color: #a4af0ed2;
+    }
+
+    .blogs .slide {
+      background: #111;
+      margin-bottom: 7rem;
+    }
+
+    .blogs .slide:hover .image img {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+
+    .blogs .slide .image {
+      height: 25rem;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .blogs .slide .image img {
+      height: 100%;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+
+    .blogs .slide .content {
+      padding: 2rem;
+    }
+
+    .blogs .slide .content .link {
+      padding-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .blogs .slide .content .link a {
+      color: #a4af0ed2;
+    }
+
+    .blogs .slide .content .link a:hover {
+      color: #fff;
+    }
+
+    .blogs .slide .content .link span {
+      color: #fff;
+      padding: 0 1rem;
+    }
+
+    .blogs .slide .content h3 {
+      font-size: 2rem;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .blogs .slide .content p {
+      font-size: 1.5rem;
+      color: #aaa;
+      line-height: 2;
+      padding: 1rem 0;
+    }
+
+    .footer .box-container {
+      display: -ms-grid;
+      display: grid;
+      /*-ms-grid-columns: (minmax(25rem, 1fr);)[auto-fit];*/
+      grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer .box-container .box h3 {
+      font-size: 2.2rem;
+      color: #fff;
+      padding: 1rem 0;
+    }
+
+    .footer .box-container .box .links {
+      font-size: 1.5rem;
+      display: block;
+      color: #aaa;
+      padding: 1rem 0;
+    }
+
+    .footer .box-container .box .links:hover {
+      color: #a4af0ed2;
+    }
+
+    .footer .box-container .box p {
+      font-size: 1.5rem;
+      color: #aaa;
+      padding: 1rem 0;
+    }
+
+    .footer .box-container .box p i {
+      padding-right: .5rem;
+      color: #a4af0ed2;
+    }
+
+    .footer .box-container .box .share {
+      padding: 1rem 0;
+    }
+
+    .footer .box-container .box .share a {
+      height: 4.5rem;
+      width: 4.5rem;
+      line-height: 4.5rem;
+      font-size: 1.7rem;
+      color: #fff;
+      background: #111;
+      border-radius: 50%;
+      margin-right: .5rem;
+      text-align: center;
+    }
+
+    .footer .box-container .box .share a:hover {
+      background: #a4af0ed2;
+    }
+
+    .footer .box-container .box form .email {
+      margin-bottom: 1rem;
+      width: 100%;
+      background: #111;
+      padding: 1.2rem;
+      font-size: 1.5rem;
+      color: #fff;
+      text-transform: none;
+    }
+
+    .credit {
+      font-size: 2rem;
+      text-align: center;
+      padding: 2rem;
+      color: #fff;
+      background: #111;
+      line-height: 1.5;
+    }
+
+    .credit span {
+      color: #a4af0ed2;
+    }
+
+    @media (max-width: 991px) {
+      html {
+        font-size: 55%;
+        scroll-padding: 7rem;
+      }
+
+      .header {
+        padding: 0 2rem;
+      }
+
+      section {
+        padding: 3rem 2rem;
+      }
+
+      .home .slide {
+        padding: 2rem 5%;
+      }
+
+      .home .slide .content {
+        width: 50rem;
+      }
+
+      .home .slide .content h3 {
+        font-size: 4rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #menu-btn {
+        display: inline-block;
+      }
+
+      #menu-btn.fa-times {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+
+      .header {
+        padding: 2rem;
+      }
+
+      .header .navbar {
+        position: absolute;
+        top: 99%;
+        left: 0;
+        right: 0;
+        background: #000;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      }
+
+      .header .navbar.active {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      .header .navbar a {
+        display: block;
+        font-size: 2rem;
+      }
+
+      .about {
+        gap: 3rem;
+      }
+
+      .about .image {
+        margin-top: 5rem;
+      }
+
+      .about .content .title {
+        font-size: 3rem;
+      }
+
+      .features .box-container .box.second {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+        flex-flow: column;
+      }
+    }
+
+    @media (max-width: 450px) {
+      html {
+        font-size: 50%;
+      }
+    }
+
+    /*# sourceMappingURL=style.css.map */
+  </style>
+</head>
+
+<body>
+<!-- header section starts      -->
+<header class="header">
+
+  <a href="#" class="logo"> <span>Fitness</span>FIT </a>
+
+  <div id="menu-btn" class="fas fa-bars"></div>
+
+  <nav class="navbar">
+    <a href="#home">home</a>
+    <a href="#about">about</a>
+    <a href="#features">features</a>
+    <a href="#pricing">pricing</a>
+    <a href="#trainers">trainers</a>
+    <a href="/login">Login</a>
+    <a href="/register">Sign Up</a>
+  </nav>
+
+</header>
+
+<!-- header section ends     -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+  <div class="swiper home-slider">
+
+    <div class="swiper-wrapper">
+
+      <div class="swiper-slide slide" style="background: url(/images/home-bg-1.jpg) no-repeat;">
+        <div class="content">
+          <span>be strong, be fit</span>
+          <h3>Make yourself stronger than your excuses.</h3>
+          <a href="/register" class="btn">get started</a>
+        </div>
+      </div>
+
+      <div class="swiper-slide slide" style="background: url(/images/home-bg-2.jpg) no-repeat;">
+        <div class="content">
+          <span>be strong, be fit</span>
+          <h3>Make yourself stronger than your excuses.</h3>
+          <a href="/login" class="btn">get started</a>
+        </div>
+      </div>
+
+      <div class="swiper-slide slide" style="background: url(/images/home-bg-3.jpg) no-repeat;">
+        <div class="content">
+          <span>be strong, be fit</span>
+          <h3>Make yourself stronger than your excuses.</h3>
+          <a href="/login" class="btn">get started</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+  </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- about section starts  -->
+
+<section class="about" id="about">
+
+  <div class="image">
+    <img th:src="@{/images/about-img.jpg}" alt="">
+  </div>
+
+  <div class="content">
+    <span>about us</span>
+    <h3 class="title">Every day is a chance to become better</h3>
+    <p>
+      Embrace each day as an opportunity for personal
+      growth and self-improvement at our gym. Fuel your
+      ambition, push your limits, and transform into the
+      best version of yourself, one workout at a time.</p>
+    <div class="box-container">
+      <div class="box">
+        <h3><i class="fas fa-check"></i>body and mind</h3>
+        <p>
+          Nurture the connection between your body and mind at
+          our gym, where fitness is more than just physical exercise.
+          Discover holistic wellness through invigorating workouts,
+          mindfulness practices, and a supportive community that uplifts
+          both your body and mind.</p>
+      </div>
+      <div class="box">
+        <h3><i class="fas fa-check"></i>healthy life</h3>
+        <p>Experience the power of a healthy life at our gym,
+          where we empower you to make positive choices that
+          nourish your body and enhance your overall well-being.
+          Discover a balanced approach to fitness, nutrition, and
+          self-care that will transform your life for the better.</p>
+      </div>
+      <div class="box">
+        <h3><i class="fas fa-check"></i>strategies</h3>
+        <p>Unlock your full potential with our strategic fitness
+          strategies designed to help you achieve your goals
+          efficiently and effectively. From personalized workout
+          plans to expert guidance, we provide the roadmap to success
+          and empower you to surpass your limits.</p>
+      </div>
+      <div class="box">
+        <h3><i class="fas fa-check"></i>workout</h3>
+        <p>LIgnite your passion for fitness with our dynamic
+          workouts that are tailored to challenge and transform
+          your body. Our experienced trainers and diverse range
+          of exercises will push you to new heights, helping you
+          build strength, endurance, and achieve the results you desire.</p>
+      </div>
+    </div>
+    <a href="#" class="btn">read more</a>
+  </div>
+
+</section>
+
+<!-- about section ends -->
+
+<!-- features section starts  -->
+
+<section class="features" id="features">
+
+  <h1 class="heading"> <span>gym features</span> </h1>
+
+  <div class="box-container">
+
+    <div class="box">
+      <div class="image">
+        <img th:src="@{/images/home-bg-1.jpg}" alt="">
+      </div>
+      <div class="content">
+        <img th:src="@{/images/icon-1.png}" alt="">
+        <h3>body building</h3>
+        <p>
+          Build your dream physique and unleash your
+          inner strength with our comprehensive bodybuilding
+          programs. Achieve massive gains, sculpted muscles,
+          and elevate your fitness to new heights.</p>
+        <a href="#" class="btn">read more</a>
+      </div>
+    </div>
+
+    <div class="box second">
+      <div class="image">
+        <img th:src="@{images/f-img-2.jpg}" alt="">
+      </div>
+      <div class="content">
+        <img th:src="@{images/icon-2.png}" alt="">
+        <h3>gym for men</h3>
+        <p>
+          Unleash your potential and redefine your fitness
+          journey at our premier gym for men. Experience
+          top-notch facilities, expert guidance, and a
+          motivating atmosphere to sculpt your physique
+          and achieve peak performance.</p>
+        <a href="#" class="btn">read more</a>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="image">
+        <img th:src="@{images/f-img-3.jpg}" alt="">
+      </div>
+      <div class="content">
+        <img th:src="@{images/icon-3.png}" alt="">
+        <h3>gym for women</h3>
+        <p>
+          Empowering women to prioritize their health
+          and well-being, our gym offers a supportive and
+          inclusive environment. Join us to build strength,
+          boost confidence, and embrace an active lifestyle
+          tailored to women's fitness goals.</p>
+        <a href="#" class="btn">read more</a>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- features section ends -->
+
+<!-- pricing section starts  -->
+
+<section class="pricing" id="pricing">
+
+  <div class="information">
+    <span>pricing plan</span>
+    <h3>affordable pricing plan for your</h3>
+    <p> Start your fitness journey with our cost-effective Basic Plan.
+      Access our top-notch gym facilities, expert trainers, and group
+      classes at an incredible 50% off.</p>
+    <p> <i class="fas fa-check"></i> cardio exercise </p>
+    <p> <i class="fas fa-check"></i> weight lifting </p>
+    <p> <i class="fas fa-check"></i> diet plans </p>
+    <p> <i class="fas fa-check"></i> overall results </p>
+    <a href="/login" class="btn">Access Free</a>
+  </div>
+
+  <div class="plan basic">
+    <h3>basic plan</h3>
+    <div class="price"><span>$</span>10<span>/mo</span></div>
+    <div class="list">
+      <p> <i class="fas fa-check"></i> cardio exercise </p>
+      <p> <i class="fas fa-check"></i> weight lifting </p>
+      <p> <i class="fas fa-check"></i> diet plans </p>
+      <p> <i class="fas fa-check"></i> overall results </p>
+    </div>
+    <a href="/login" class="btn">get started</a>
+  </div>
+
+  <div class="plan">
+    <h3>premium plan</h3>
+    <div class="price"><span>$</span>30<span>/mo</span></div>
+    <div class="list">
+      <p> <i class="fas fa-check"></i> personal training </p>
+      <p> <i class="fas fa-check"></i> cardio exercise </p>
+      <p> <i class="fas fa-check"></i> weight lifting </p>
+      <p> <i class="fas fa-check"></i> diet plans </p>
+      <p> <i class="fas fa-check"></i> overall results </p>
+    </div>
+    <a href="/login" class="btn">get started</a>
+  </div>
+
+</section>
+
+<!-- pricing section ends -->
+
+<!-- trainers section starts  -->
+
+<section class="trainers" id="trainers">
+
+  <h1 class="heading"> <span>expert trainers</span> </h1>
+
+  <div class="box-container">
+
+    <div class="box">
+      <img th:src="@{images/suyog.jpg}" alt="">
+      <div class="content">
+        <span>expert trainer</span>
+        <h3>Suyog Manandhar</h3>
+        <div class="share">
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-instagram"></a>
+          <a href="#" class="fab fa-whatsapp"></a>
+          <a href="#" class="fab fa-linkedin"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <img th:src="@{/images/trainer-2.jpg}" alt="">
+      <div class="content">
+        <span>expert trainer</span>
+        <h3>Shriya bastola</h3>
+        <div class="share">
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-instagram"></a>
+          <a href="#" class="fab fa-whatsapp"></a>
+          <a href="#" class="fab fa-linkedin"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <img th:src="@{/images/trainer-3.jpg}" alt="">
+      <div class="content">
+        <span>expert trainer</span>
+        <h3>Prasanna Thapa</h3>
+        <div class="share">
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-instagram"></a>
+          <a href="#" class="fab fa-whatsapp"></a>
+          <a href="#" class="fab fa-linkedin"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <img th:src="@{/images/trainer-4.jpg}" alt="">
+      <div class="content">
+        <span>expert trainer</span>
+        <h3>Rishesh Shrestha</h3>
+        <div class="share">
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-instagram"></a>
+          <a href="#" class="fab fa-whatsapp"></a>
+          <a href="#" class="fab fa-linkedin"></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- trainers section ends -->
+
+<!-- banner section starts  -->
+
+<section class="banner">
+
+  <span>join us now</span>
+  <h3>get upto 50% discount</h3>
+  <p>Contact for Discount!!!!
+    Get fit for less with our exclusive 50% discount!
+    Join our state-of-the-art gym today and enjoy premium
+    facilities, expert trainers, and a supportive community
+    at half the price. Don't miss this limited-time offer to
+    achieve your fitness goals without breaking the bank!</p>
+<!--  <a href="#" class="btn">get discount</a>-->
+
+</section>
+
+<!-- banner section ends -->
+
+
+<!-- footer section starts  -->
+
+<section class="footer">
+
+  <div class="box-container">
+
+    <div class="box">
+      <h3>quick links</h3>
+      <a class="links" href="#home">home</a>
+      <a class="links" href="#about">about</a>
+      <a class="links" href="#features">features</a>
+      <a class="links" href="#pricing">pricing</a>
+      <a class="links" href="#trainers">trainers</a>
+
+    </div>
+
+    <div class="box">
+      <h3>opening hours</h3>
+      <p> sunday : <i> 7:00am - 10:30pm </i> </p>
+      <p> monday : <i> 7:00am - 10:30pm </i> </p>
+      <p> tuesday : <i> 7:00am - 10:30pm </i> </p>
+      <p> wednesday : <i> 7:00am - 10:30pm </i> </p>
+      <p> friday : <i> 7:00am - 10:30pm </i> </p>
+      <p> saturday : <i> closed </i> </p>
+    </div>
+
+
+  </div>
+
+</section>
+<!-- footer section ends -->
+
+</body>
+
+</html>
